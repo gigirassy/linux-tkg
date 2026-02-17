@@ -1749,24 +1749,10 @@ fi
 
   # modprobed-db
 
-  if [[ "$_modprobeddb" = "true" && "$_kernel_on_diet" == "true" ]]; then
-    msg2 "_modprobeddb and _kernel_on_diet cannot be used together: it doesn't make sense, _kernel_on_diet uses our own modprobed list ;)"
-    exit 1
-  fi
-
-  if [[ "$_kernel_on_diet" == "true" && "$_kver" -lt 605 ]]; then
-    msg2 "_kernel_on_diet not implemented for kernels older than 6.5"
-    exit 1
-  fi
-
-  if [[ "$_modprobeddb" = "true" || "$_kernel_on_diet" == "true" ]]; then
+  if [[ "$_modprobeddb" = "true" ]]; then
     msg2 "Using modprobed-db"
     if [ -f "$_where"/"$_modprobeddb_db_path" ]; then
       _modprobeddb_db_path="$_where"/"$_modprobeddb_db_path"
-    fi
-    if [ "$_kernel_on_diet" == "true" ]; then
-      msg2 "Using linux-tkg diet db"
-      _modprobeddb_db_path="$_where/minimal-modprobed.db"
     fi
     if [ ! -f $_modprobeddb_db_path ]; then
       msg2 "modprobed-db database not found"
